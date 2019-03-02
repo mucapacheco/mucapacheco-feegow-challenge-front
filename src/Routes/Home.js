@@ -1,6 +1,15 @@
 import React, {Component} from 'react';
+import Select from 'react-select';
+
 
 class Home extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            especialidades: [],
+        }
+    }
 
     componentDidMount() {
         let headers = new Headers();
@@ -14,20 +23,27 @@ class Home extends Component {
                 throw Error(response.statusText);
             }
             return response.json();
-        }).then(function(response) {
-            if(response.success === true){
+        }).then((response) => {
+            if (response.success !== true) {
                 throw Error("Erro ao consultar a api");
             }
 
-            console.log(response);
+            let especialidades = response.content.map((especialidade) => {
+                return {value: especialidade.especialidade_id, label: especialidade.nome}
+            });
+
+            this.setState({
+                especialidades: especialidades
+            });
+
         }).catch(function (error) {
             console.log('Request failed', error)
-        })
+        });
     }
 
     render() {
         return (
-            <div>Home</div>
+            <Select options={this.state.especialidades}/>
         );
     }
 }
