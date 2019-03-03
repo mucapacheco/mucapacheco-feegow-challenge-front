@@ -6,6 +6,7 @@ import Origens from "../Services/Api/Origens";
 import Select from "react-select";
 import CPF from 'cpf-check';
 import App from "../App";
+import Agendamento from "../Services/Api/Agendamento";
 
 class Cadastro extends Component {
 
@@ -90,7 +91,9 @@ class Cadastro extends Component {
             return;
         }
 
-        App.ToastsStore.success("Usuário cadastrado com sucesso.");
+        Agendamento.agendar(formData).then(() => {
+            App.ToastsStore.success("Usuário cadastrado com sucesso.");
+        });
 
         return false;
     }
@@ -98,10 +101,8 @@ class Cadastro extends Component {
     render(arg) {
         return (
             <div>
-
                 <h5>Preencha seu dados</h5>
                 <div className="row">
-
                     <div className="col-md-4">
                         <label>Profissional Selecionado</label>
                         {this.state.profissional && this.state.especialidadeSelecionada &&
