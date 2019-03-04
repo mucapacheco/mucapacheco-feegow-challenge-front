@@ -17,7 +17,6 @@ class Cadastro extends Component {
         datanascimento: React.createRef(),
     }
 
-
     constructor(props) {
         super(props);
         this.changeOrigens = this.changeOrigens.bind(this);
@@ -92,7 +91,7 @@ class Cadastro extends Component {
         }
 
         Agendamento.agendar(formData).then(() => {
-            App.ToastsStore.success("Usuário cadastrado com sucesso.");
+            App.ToastsStore.success("Agendamento realizado com sucesso.");
         });
 
         return false;
